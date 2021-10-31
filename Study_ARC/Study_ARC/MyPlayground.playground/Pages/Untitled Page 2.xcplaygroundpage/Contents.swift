@@ -1,6 +1,7 @@
-# Swift_Study
-211101_ARC
-//ARC_스터디
+//: [Previous](@previous)
+
+import Foundation
+
 
 class Dog {
     var name: String
@@ -34,8 +35,8 @@ class Person {
 var moong: Dog? = Dog(name: "뭉치", weight: 3.5) //rc: 1
 //var gyeol: Dog? = Dog(name: "송결", weight: 58)  //rc: 1
 
-moong = nil // nil값을 주면 메모리해제 된다.
-gyeol = nil // nil값을 주면 메모리해제 된다.
+moong = nil
+gyeol = nil
 
 
 var gyeol: Person? = Person(name: "송결", age: 33)
@@ -70,52 +71,5 @@ dog1 = nil                                // RC - 1   RC == 0    // 메모리 �
 
 
 
-#강한참조(메모리누수현상)
-
-//강한참조 오너<->펫 서로 참조하기 때문에
-//nil값을 줘도 서로 참조하기 때문에 메모리 해제x,
-//메모리 누수현상 해결
-//weak(약한), unowned(비소유) 키워드
 
 
-class Dog {
-    var name: String
-    weak var owner: Person?
-    
-    init(name: String) {
-        self.name = name
-    }
-    
-    deinit {
-        print("\(name) 메모리 해제")
-    }
-}
-
-
-class Person {
-    var name: String
-    weak var pet: Dog?
-    
-    init(name: String) {
-        self.name = name
-    }
-    
-    deinit {
-        print("\(name) 메모리 해제")
-    }
-}
-
-
-var moong: Dog? = Dog(name: "뭉치")
-var song: Person? = Person(name: "송결")
-
-
-moong?.owner = song
-song?.pet = moong
-
-
-moong = nil
-song = nil
-
-
-1030-test
