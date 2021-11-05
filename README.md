@@ -1,4 +1,39 @@
 # Swift_Study
+211105_ButtonApp
+//화면 하나당 그 화면을 담당하는 코드가 있다
+//viewDidLoad = 앱의 화면에 들어오면 처음 실행시키는 함수
+// qq = outlet, action 연결 끊는 단축키??
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var mainLabel: UILabel!
+    @IBOutlet weak var buttonPush: UIButton!
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        mainLabel.backgroundColor = UIColor.black
+        
+    }
+    
+    
+    
+    
+    @IBAction func buttonPush(_ sender: UIButton){
+        
+        mainLabel.text = "될까?"
+        buttonPush.backgroundColor = UIColor.white
+        buttonPush.setTitleColor(.black, for: .normal) //<-함수, for = parametter
+        
+    }
+    
+
+
+}
+
+
 211104_ButtonApp
 
 211101_ARC
