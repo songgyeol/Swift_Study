@@ -1,4 +1,38 @@
 # Swift_Study
+211106_DICEApp
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var firstImageView: UIImageView!
+    @IBOutlet weak var secondImageView: UIImageView!
+    
+    var diceArray: [UIImage] = [#imageLiteral(resourceName: "black1"), #imageLiteral(resourceName: "black2"), #imageLiteral(resourceName: "black3"), #imageLiteral(resourceName: "black4"), #imageLiteral(resourceName: "black5"), #imageLiteral(resourceName: "black6")]
+    
+    
+    //viewdidload = 첫 화면
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        firstImageView.image = diceArray[1]
+        secondImageView.image = diceArray[1]
+        
+    }
+
+    @IBAction func buttonTapped(_ sender: UIButton) {
+        //버튼을 눌렀을 때
+        //첫번째 이미지뷰의 이미지를 랜덤으로 변경
+        //두번째 이미지뷰의 이미지를 랜덤으로 변경
+        firstImageView.image = diceArray.randomElement()
+        
+        
+        secondImageView.image = diceArray.randomElement()
+        
+        
+        
+    }
+}
+
 211105_ButtonApp
 //화면 하나당 그 화면을 담당하는 코드가 있다
 //viewDidLoad = 앱의 화면에 들어오면 처음 실행시키는 함수
