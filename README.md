@@ -1,4 +1,141 @@
 # Swift_Study
+211107_가위바위보
+RPSGame
+import UIKit
+
+
+class ViewController: UIViewController {
+    //변수,속성
+    @IBOutlet var mainLabel: UIView!
+    
+    
+    @IBOutlet var comImageView: UIView!
+    @IBOutlet var myImageView: UIView!
+    
+    @IBOutlet weak var comChoiceLabel: UILabel!
+    @IBOutlet weak var myChoiceLabel: UILabel!
+    
+
+    var myChoice: Rps = Rps(rawValue: Int.random(in: 0...2))!
+    
+    var comChoice: Rps = Rps.rock
+    
+    
+    
+    //함수,메서드
+    //앱의 화면에 들어오면 처음 실행되는 함수
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        comImageView.image = #imageLiteral(resourceName: "ready") //image literal
+        myImageView.image = = UIImage(named: "ready.png")//애셋파일에 저장된 이미지 넣는법
+        
+        
+        comChoiceLabel.text = "준비"
+        myChoiceLabel.text = "준비"
+        
+        
+        
+    }
+    
+    
+    @IBAction func rpsButtonTapped(_ sender: UIButton) {
+        //가위/바위/보(enum)를 선택해서 그 정보를 저장해야 됨
+        
+        //버튼의 문자를 가져옴
+        //1.
+        //guard let title = sender.currentTitle else {        }
+        
+        //2.
+        let title sender.currentTitle!
+        
+        switch title {
+        case "가위":
+            myChoice = Rps.scissors
+        case "바위":
+            myChoice = Rps.rock
+        case "보":
+            myChoice = Rps.paper
+        default:
+            break
+        }
+        
+        
+        
+    }
+    
+    //리셋시키기
+    @IBAction func resetButtonTapped(_ sender: UIButton) {
+        //1.컴퓨터가 랜덤 선택한 것을 이미지뷰에 표시
+        //2.컴퓨터가 랜덤 선택한 것을 레이블에 표시
+        comImageView.image = image literal
+        comChoiceLabel.text = "준비"
+        
+        
+        //3.내가 선택한 것을 이미지뷰에 표시
+        //4.내가 선택한 것을 레이블에 표시
+        myImageView.image = image literal
+        myChoiceLabel.text = "준비"
+        
+        //5.컴퓨터와 내가 선택한 것을 비교해서 승/패 표시
+        mainLabel.text = "선택하세요"
+        comChoice = Rps(rawValue: Int.random(in: 0...2))!
+        
+    }
+    
+    
+    @IBAction func selectButtonTapped(_ sender: UIButton) {
+        //1.컴퓨터 다시 이미지 준비 표시
+        //2.컴퓨터가 다시 레이블 준비 표시
+        switch comChoice {
+        case Rps.rock:
+            comImageView.image = rock image
+            comChoiceLabel.text = "바위"
+        case Rps.paper:
+            comImageView.image = paper image
+            comChoiceLabel.text = "보"
+        case Rps.scissors:
+            comImageView.image = scissors image
+            comChoiceLabel.text = "가위"
+        }
+        
+        switch myChoice {
+        case Rps.rock:
+            myImageView.image = rock image
+            myChoiceLabel.text = "바위"
+        case Rps.paper:
+            myImageView.image = paper image
+            myChoiceLabel.text = "보"
+        case Rps.scissors:
+            myImageView.image = scissors image
+            myChoiceLabel.text = "가위"
+        }
+        
+        
+        if comChoice == myChoice {
+            mainLabel.text = "비겼다"
+        } else if comChoice == .rock && myChoice == .paper {
+            mainLabel.text = "이겼다"
+        } else if comChoice == .paper && myChoice == .scissors {
+            mainLabel.text = "이겼다"
+        } else if comChoice == .scissors && myChoice == .rock {
+            mainLabel.text = "이겼다"
+        } else {
+            mainLabel.text = "졌다"
+        }
+        
+        
+        //3.내가 다시 이미지뷰 준비 표시
+        //4.내가 다시 레이블 준비 표시
+        //5.메인레이블 선택하세요 표시
+        //컴퓨터가 다시 랜덤 가위,바위,보를 선택하고 저장하도록 리셋
+        
+        
+        
+    }
+}
+
+
 211106_DICEApp
 import UIKit
 
