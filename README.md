@@ -1,4 +1,55 @@
 # Swift_Study
+211107_Button(view)
+//스토리보드 뷰로 기본틀 만들기
+//세컨뷰들 코코아로 코드로 연결하기
+//
+
+//#ViewController.Swift
+import UIKit
+class ViewController: UIViewController {
+    
+    @IBOutlet weak var mainLabel: UILabel!
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        mainLabel.backgroundColor = UIColor.white
+    }
+    
+    @IBAction func mainBT1(_ sender: UIButton) {
+        mainLabel.backgroundColor = UIColor.yellow
+    }
+    
+    @IBAction func mainBT2(_ sender: UIButton) {
+        mainLabel.backgroundColor = UIColor.green
+        
+    }   
+}
+
+
+//#ViewController.Swift2
+import UIKit
+
+class ViewController2: UIViewController {
+
+    
+    @IBOutlet weak var yellowBT: UIButton!
+    
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        yellowBT.backgroundColor = UIColor.white
+        yellowBT.setTitle("", for: .normal)
+        yellowBT.layer.cornerRadius = 10    
+      
+    }    
+    @IBAction func yellowBackButton(_ sender: UIButton) {
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+        
+    }
+
 211107_가위바위보
 RPSGame
 import UIKit
