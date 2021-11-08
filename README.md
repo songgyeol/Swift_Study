@@ -1,4 +1,200 @@
 # Swift_Study
+211108_AutoLayout
+참조 = https://macgongmon.club/31
+**Frame-Base Layout**의 경우에는 상단 사각형 뷰를 그릴때 해당 뷰는 **"좌표 (20, 20)에 위치하고 폭은 120, 높이는 80을 가지고 있다."** 라고 정의를 합니다. 정의한 좌표와 사이즈에 따라서 뷰가 그려질겁니다.
+
+반대로 **Auto Layout**의 경우에는 Frame-Base Layout과는 다르게 뷰를 정의할때 **"어느 뷰로부터 어느만큼 떨어져있다."**라고 불리는 **제약사항(constraint)**을 정의해줍니다.오른쪽에 있는 뷰의 상단 사각형 뷰를 그릴 경우 다음과 같은 제약사항을정의합니다.
+
+- 사각형 뷰의 왼쪽은 부모 뷰로부터 20 떨어져있다.
+- 사각형 뷰의 오른쪽은 부모 뷰로부터 -20 떨어져있다.
+- 사각형 뷰의 상단은 부모 뷰로부터 20 떨어져있다.
+- 사각형 뷰의 높이는 α이다.
+
+Auto Layout의 가장 큰 장점은 **여러 해상도를 유연하게 지원할 수 있다는 것**입니다.왼쪽과 같이 Frame-Base Layout으로 뷰를 그리면 의도된 해당도를 지원하는 단말기에서는 정상적으로 보이겠지만, 더 작은 해상도라던지, 더 큰 해상도에서 보게되면 여백이 많이 줄어들거나, 반대로 여백이 많이 생길 수 있습니다.Auto Layout의 경우에는 왼쪽, 오른쪽에 제약사항을 걸어두었으니 해상도가 작은 단말기든, 높은 단말기든 상관없이 부모 뷰로부터 왼쪽에서 20, 오른쪽에서 20만큼 떨어져서 뷰가 그려집니다.
+
+이런 장점으로 인해서 Auto Layout을 많이 사용하게 된 것 같습니다.
+
+### 코드로 그려보자!
+
+코드로 Auto Layout을 그릴 경우, 3가지 순서로 뷰를 그려주면 됩니다!
+
+- UI요소들 정의
+- addSubView
+- bind constraints
+
+
+class AutoLayoutView: UIView {
+  
+  let titleLabel: UILabel = {
+    let label = UILabel()
+    
+    label.text = "AutoLayout 만들기👋"
+    label.textColor = .black
+    label.font = .systemFont(ofSize: 24)
+    label.translatesAutoresizingMaskIntoConstraints = false
+    return label
+  }()
+  
+  let descriptionLabel: UILabel = {
+    let label = UILabel()
+    
+    label.text = "설명이 여기에 들어갈껀데용?"
+    label.textColor = .gray
+    label.font = .systemFont(ofSize: 15)
+    label.translatesAutoresizingMaskIntoConstraints = false
+    return label
+  }()
+  
+  ...
+}
+
+
+그려야할 UI요소는 UILabel 두개니까 두개를 정의해줍시다. 텍스트 내용, 컬러, 폰즈는 적당히 설정했어요 ㅋㅋ
+
+정의해주실 때 만드시
+
+**translatesAutoresizingMaskIntoConstraints** 값을 **false**로 설정해주세요! [공식문서](https://developer.apple.com/documentation/uikit/uiview/1622572-translatesautoresizingmaskintoco)에 이렇게 적혀있어요!
+
+우리는 동적으로 뷰의 위치와 크기를 결정할 것이기 때문에 false로 설정해줍니다!
+
+UI요소를 정의했으니 나머니 addSubView와 bind Constraints를 진행해봅시다.
+
+import UIKit
+
+class AutoLayoutView: UIView {
+
+  ...
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    
+    // Setup
+    self.backgroundColor = .white
+    self.addSubview(titleLabel)
+    self.addSubview(descriptionLabel)
+    
+    
+    // Bind constraints
+    self.titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 24).isActive = true
+    self.titleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 24).isActive = true
+    
+    self.descriptionLabel.leftAnchor.constraint(equalTo: self.titleLabel.leftAnchor).isActive = true
+    self.descriptionLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 5).isActive = true
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+}
+
+뷰들의 Constraint를 걸어주기 전에 addSubView를 통해 뷰 계층 구조를 먼저 만들어줍시다.
+
+그 다음에 Constraint들을 생성해줍니다!
+
+하나씩 살펴보면 titleLabel의 left에 대한 제약사항을 먼저 만들어줍니다.
+
+```swift
+self.titleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 24).isActive = true
+```
+
+titleLabel은 부모 뷰의 왼쪽에서 24만큼만 떨어져야합니다. 여기서 부모라고 불리는 것은 addSubView에서 뷰의 계층구조를 정의해줬으므로 전체 화면을 의미합니다.
+
+```swift
+self.titleLabel.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor, constant: 24).isActive = true
+```
+
+다음으로 titleLabel의 top은 상단 safeAreaLayout으로부터 24만큼 떨어져야하므로 위와같이 설정해줍니다.
+
+하나씩 보니 간단하죠?? titleLabel에 대한 제약은 모두 만들었으니, 그 다음 descriptionLabel에 대한 제약을 만들어 줍니다.
+
+```swift
+self.descriptionLabel.leftAnchor.constraint(equalTo: self.titleLabel.leftAnchor).isActive = true
+self.descriptionLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: 5).isActive = true
+```
+
+descriptionLabel의 left는 titleLabel의 left와 동일하게 설정해줬습니다.titleLabel의 left는 화면 왼쪽으로부터 24만큼 떨어지게 설정을 했고, descriptionLabel도 똑같은 제약을 만들겠다고 했으니 descriptionLabel의 left도 화면 왼쪽으로부터 24만큼 떨어지게 됩니다.**(동일한 제약사항을 적용한다라고 생각하시면 됩니다!)**descriptionLabel의 top은 titleLabel의 밑으로 5만큼 떨어지게 설정했습니다.
+
+이렇게 뷰 클래스를 만들어 놓고 ViewController에서 view만 방금 만든 뷰 클래스로 설정해주면 되겠죠?
+
+```swift
+import UIKit
+
+class ViewController: UIViewController {
+  
+  private lazy var autoLayoutView = AutoLayoutView(frame: self.view.frame)
+  
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    self.view = autoLayoutView
+  }
+}
+```
+
+### SnapKit
+
+[SnapKit](https://github.com/SnapKit/SnapKit)은 위에서 코드로 만든 Auto Layout을 조금 더 쉽게 만들 수 있도록 도와주는 라이브러리입니다.위에서 만든 뷰 코드를 SnapKit으로 만들게 되면 아래와 같습니다.
+
+```swift
+import UIKit
+import SnapKit
+
+class AutoLayoutView: UIView {
+  
+  let titleLabel: UILabel = {
+    let label = UILabel()
+    
+    label.text = "AutoLayout 만들기👋"
+    label.textColor = .black
+    label.font = .systemFont(ofSize: 24)
+    return label
+  }()
+  
+  let descriptionLabel: UILabel = {
+    let label = UILabel()
+    
+    label.text = "설명이 여기에 들어갈껀데용?"
+    label.textColor = .gray
+    label.font = .systemFont(ofSize: 15)
+    return label
+  }()
+  
+  
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    
+    // Setup
+    self.backgroundColor = .white
+    self.addSubview(titleLabel)
+    self.addSubview(descriptionLabel)
+    
+    
+    // Bind Constraints
+    self.titleLabel.snp.makeConstraints { make in
+      make.left.equalToSuperview().offset(24)
+      make.top.equalTo(self.safeAreaLayoutGuide.snp.top).offset(24)
+    }
+    
+    self.descriptionLabel.snp.makeConstraints { make in
+      make.left.equalTo(self.titleLabel.snp.left)
+      make.top.equalTo(self.titleLabel.snp.bottom).offset(5)
+    }
+  }
+  
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+}
+```
+
+처음에 코드로 그린 뷰와 비교했을때 가장 큰 차이는 두가지입니다!
+
+- translatesAutoresizingMaskIntoConstraints = false 를 하지 않아도 된다!
+- left, top, right, bottom마다 한줄씩 정의할 필요 없이 하나의 뷰에 대해서 클로저로 한꺼번에 Constratins 정의 가능!
+
+개인적으로는 SnapKit형태로 AutoLayout을 정의하는 코드가 좀더 쉽게 읽혀서 SnapKit 사용을 선호하는 편입니다.
+
+
 211107_Button(view)
 //스토리보드 뷰로 기본틀 만들기
 //세컨뷰들 코코아로 코드로 연결하기
