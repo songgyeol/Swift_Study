@@ -1,4 +1,101 @@
 # Swift_Study
+211108_Button(code)
+import UIKit
+
+class ViewController: UIViewController {
+
+    let redButton = UIButton()
+    let blueButton = UIButton()
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        [redButton, blueButton].forEach {
+            $0.setTitle("뒤로", for: .normal)
+            
+        }
+        view.addSubview(redButton)
+        redButton.frame.size = CGSize(width: 60, height: 30)
+        redButton.layer.cornerRadius = 10
+        
+        //redButton.setTitle("", for: .normal)
+        redButton.backgroundColor = UIColor.systemRed
+        redButton.addTarget(self, action: #selector(redBtTapped(_:)), for: .touchUpInside)
+
+        view.addSubview(blueButton)
+        blueButton.frame.size = CGSize(width: 60, height: 30)
+        blueButton.layer.cornerRadius = 10
+        //blueButton.setTitle("", for: .normal)
+        blueButton.backgroundColor = UIColor.systemBlue
+        blueButton.addTarget(self, action: #selector(blueBtTapped(_:)), for: .touchUpInside)
+        
+        //[뷰를 유연하게 표현] 생성된 제약을 적용 isActive = true
+        redButton.translatesAutoresizingMaskIntoConstraints = false
+        blueButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        //중심선
+        let safeArea = view.safeAreaLayoutGuide
+        redButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        blueButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        //상단에서부터
+        redButton.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 300).isActive = true
+        blueButton.topAnchor.constraint(equalTo: redButton.topAnchor, constant: 200).isActive = true
+        
+    
+    }
+
+    @objc func redBtTapped(_ button: UIButton) {
+        guard let redViewVC = storyboard?.instantiateViewController(identifier: "redView") else { return }
+        redViewVC.modalPresentationStyle = .fullScreen
+        self.present(redViewVC, animated: true, completion: nil)
+    }
+    
+    
+    @objc func blueBtTapped(_ button: UIButton) {
+        guard let blueViewVC = storyboard?.instantiateViewController(identifier: "blueView") else { return }
+        blueViewVC.modalPresentationStyle = .fullScreen
+        self.present(blueViewVC, animated: true, completion: nil)
+    }
+}
+
+
+import UIKit
+
+class FIrstViewController: UIViewController {
+
+    let redBackBt = UIButton()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        view.backgroundColor = UIColor.systemRed
+        view.layer.cornerRadius = 10
+        view.addSubview(redBackBt)
+        
+        redBackBt.setTitle("뒤로", for: .normal)
+        redBackBt.setTitleColor(.black, for: .normal)
+        redBackBt.backgroundColor = UIColor.white
+        redBackBt.addTarget(self, action: #selector(whiteBackTapped), for: .touchUpInside)
+        redBackBt.translatesAutoresizingMaskIntoConstraints = false
+        redBackBt.layer.cornerRadius = 10
+        
+        
+        let safeArea = view.safeAreaLayoutGuide
+        
+                
+        redBackBt.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor).isActive = true
+        redBackBt.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor).isActive = true
+        redBackBt.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 150).isActive = true
+        redBackBt.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -150).isActive = true
+        // Do any additional setup after loading the view.
+    }
+    
+
+    @objc func whiteBackTapped(_ button: UIButton) {
+        self.presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+
 211108_AutoLayout
 참조 = https://macgongmon.club/31
 **Frame-Base Layout**의 경우에는 상단 사각형 뷰를 그릴때 해당 뷰는 **"좌표 (20, 20)에 위치하고 폭은 120, 높이는 80을 가지고 있다."** 라고 정의를 합니다. 정의한 좌표와 사이즈에 따라서 뷰가 그려질겁니다.
