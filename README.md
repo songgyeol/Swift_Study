@@ -1,4 +1,41 @@
 # Swift_Study
+211109_Menu(view)
+import UIKit
+
+class ViewController: UIViewController {
+
+    @IBOutlet weak var mainLabel: UILabel!
+    @IBOutlet weak var firstMenu: UILabel!
+    @IBOutlet weak var secondMenu: UILabel!
+    @IBOutlet weak var thirdMenu: UILabel!
+    
+    @IBOutlet weak var firstStepper: UIStepper!
+    @IBOutlet weak var secondStepper: UIStepper!
+    @IBOutlet weak var thirdStepper: UIStepper!
+    
+    @IBOutlet weak var walletBT: UIButton!
+    @IBOutlet weak var choiceBT: UIButton!
+    @IBOutlet weak var resetBT: UIButton!
+    
+     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    
+        mainLabel.text = "메뉴를 선택하세요"
+        firstMenu.text = "짜장면"
+        secondMenu.text = "마파두부"
+        thirdMenu.text = "짬봉"
+        
+        walletBT.setTitle("지갑", for: .normal)
+        choiceBT.setTitle("결정", for: .normal)
+        resetBT.setTitle("취소", for: .normal)
+    
+    }
+    
+
+
+}
+
 211109_Button(code) 최종정리
 //main view
 import UIKit
