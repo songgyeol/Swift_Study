@@ -1,4 +1,70 @@
 # Swift_Study
+211110_Menu(code_1)
+import UIKit
+
+class ViewController: UIViewController {
+    let mainLabel = UILabel()
+    
+    let walletButton = UIButton()
+    
+    let firstMenuLabel = UILabel()
+    let secondMenuLabel = UILabel()
+    let thirdMenuLabel = UILabel()
+    
+    let firstMenuStepper = UIStepper.init()
+    let secondMenuStepper = UIStepper.init()
+    let thirdMenuStepper = UIStepper.init()
+    
+    let creditButton = UIButton()
+    let resetButton = UIButton()
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        _ = view.safeAreaLayoutGuide
+        
+        view.addSubview(mainLabel)
+        mainLabel.text = "메뉴를 선택하세요"
+        mainLabel.textColor = UIColor.blue
+        mainLabel.backgroundColor = UIColor.green
+        mainLabel.font = .systemFont(ofSize: 20)
+        mainLabel.frame.size = CGSize.init(width: 50, height: 30)
+        //mainLabel.layer.preferredFrameSize() 이건 뭐야?
+        mainLabel.layer.cornerRadius = 1 //레이블 테두리 둥글게??안되는데???
+        //수직 중앙에 맞추기
+        mainLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        //수평 중앙에 맞추기
+        //mainLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
+        //메인 레이블을 왼쪽에서부터 제약을 둔다(왼쪽으로부터 100을 띄우겠다)
+        mainLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 100).isActive = true
+        //메인 레이블을 위쪽에서부터 제약을 둔다(상단 m자탈모부터 50 띄우겠다)
+        mainLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        mainLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        view.addSubview(walletButton)
+        walletButton.setTitle("내 지갑", for: .normal)
+        walletButton.backgroundColor = UIColor.red
+        //walletButton.setTitleColor(.brown, for: .focused) 너는 뭐야?
+        //walletButton.setTitleShadowColor(.blue, for: .highlighted) 너도 뭔데?
+        walletButton.frame.size = CGSize.init(width: 50, height: 30)
+        walletButton.layer.cornerRadius = 10
+        //walletButton.addTarget(self, action: #selector(walletButton), for: .touchUpInside)
+        
+        walletButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 50).isActive = true
+        walletButton.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 20).isActive = true
+        walletButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        
+    }
+}
+
+
+
+
 211109_Menu(view)
 import UIKit
 
