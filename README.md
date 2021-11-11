@@ -1,4 +1,16 @@
 # Swift_Study
+211111_Menu(code_2)
+Alert 코드 구현
+//override func viewDidLoad() {
+    super.viewDidLoad()
+    walletButton.addTarget(self, action: #selector(walletBtnTapped(_:)), for: .touchUpInside)
+
+//class에서 정의
+walletButton.addTarget(self, action: #selector(walletBtnTapped(_:)), for: .touchUpInside)
+@objc func walletBtnTapped(_ sender: UIButton) {
+    
+}
+
 211110_Menu(code_1)
 import UIKit
 
