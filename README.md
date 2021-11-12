@@ -1,4 +1,29 @@
 # Swift_Study
+211111_Menu(code_3)
+let alert = UIAlertController(title: "내 지갑", message: "얼마를 갖고 싶니?", preferredStyle: UIAlertController.Style.alert)
+
+@objc func walletBtnTapped(_ sender: UIButton) {
+    //let defaultAction =  UIAlertAction(title: "내 지갑", style: UIAlertAction.Style.default)
+    let destructiveAction = UIAlertAction(title: "확인", style: UIAlertAction.Style.destructive){(_) in
+        // 버튼 클릭시 실행되는 코드
+    }
+    let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
+    
+    //메시지 창 컨트롤러에 버튼 액션을 추가
+    //alert.addAction(defaultAction)
+    alert.addAction(destructiveAction)
+    alert.addAction(cancelAction)
+    alert.addTextField() { (tf) in
+        tf.placeholder = "얼마를 갖고싶냐고 말해!"
+//          tf.isSecureTextEntry = true
+//          두 번째 코드인. isSecureTextEntry는 비밀번호 입력을 하면 필드에서 그 값을 ●●●로 처리하는 것입니다.
+    }
+
+    //메시지 창 컨트롤러를 표시
+    self.present(alert, animated: false)
+}
+
+
 211111_Menu(code_2)
 Alert 코드 구현
 //override func viewDidLoad() {
