@@ -1,4 +1,6 @@
 # Swift_Study
+20211113 test
+
 211111_Menu(code_3)
 let alert = UIAlertController(title: "내 지갑", message: "얼마를 갖고 싶니?", preferredStyle: UIAlertController.Style.alert)
 
