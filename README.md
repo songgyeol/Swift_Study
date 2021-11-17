@@ -1,4 +1,56 @@
 # Swift_Study
+211117_Memory Leak Study_3
+Alert reset, + 원
+매우 간단하다 #그냥 값을 0으로 주면된다.
+
+let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.cancel, handler: nil)
+        //메시지 창 컨트롤러에 버튼 액션을 추가
+        //alert.addAction(defaultAction)
+        //alert.addAction(destructiveAction)
+        
+        firstMenuStepper.value = 0
+        secondMenuStepper.value = 0
+        thirdMenuStepper.value = 0
+        
+        a = 0
+        b = 0
+        c = 0
+        
+        alert.addAction(cancelAction)
+        alert.addAction(destructiveAction)
+        //메시지 창 컨트롤러를 표시
+        self.present(alert, animated: false)
+    
+    }
+
+
+-----------------------------------------------------------------------------
+ + 원 붙이기, 왜 내가 했을때는 안됐었지?
+
+@objc func firstStepper(_ sender: UIStepper) {
+        
+        firstMenuQuantity.text = Int(sender.value).description
+        a = Int(sender.value) * 6000
+        totalLabel.text = "\(a + b + c) 원"
+        
+        
+    }
+    
+    @objc func secondStepper(_ sender: UIStepper) {
+        secondMenuQuantity.text = Int(sender.value).description
+        b = Int(sender.value) * 7000
+        totalLabel.text = "\(a + b + c) 원"
+        
+        
+    }
+    
+    @objc func thirdStepper(_ sender: UIStepper) {
+        thirdMenuQuantity.text = Int(sender.value).description
+        c = Int(sender.value) * 9000
+        totalLabel.text = "\(a + b + c) 원"
+    }
+
+
 211115_Memory Leak Study_3
 메모리 누수(Memory Leak)의 사례
 메모리 누수(Memory Leak)의 사례
