@@ -1,4 +1,8 @@
 # Swift_Study
+211118_Domino Clone App Dev Start
+
+
+
 211117_Memory Leak Study_3
 Alert reset, + 원
 매우 간단하다 #그냥 값을 0으로 주면된다.
