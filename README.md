@@ -1,4 +1,25 @@
 # Swift_Study
+211120_Domino Clone App Dev Start
+
+// tableView 생성
+    private let tableView: UITableView = {
+        let tableview = UITableView()
+        return tableview
+    }()
+    // imageView 생성
+    private let img: UIImageView = {
+    let imgView = UIImageView()
+    imgView.image = UIImage(named: " ")
+    return imgView
+}()
+// label 생성
+private let label: UILabel = {
+    let label = UILabel()
+    label.text = "메뉴"
+    label.textColor = UIColor.gray
+    return label
+}()
+
 211118_Domino Clone App Dev Start
 
 
