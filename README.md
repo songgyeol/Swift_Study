@@ -1,4 +1,56 @@
 # Swift_Study
+211121_Tablew View Snapkit?
+//snapkit?
+
+import UIKit
+
+final class PracticeViewController: UIViewController {
+    static func instance() -> PracticeViewController? {
+        return PracticeViewController()
+    }
+
+    private let tableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .grouped)
+        tableView.register(PracticeChatTableViewCell.self, forCellReuseIdentifier: PracticeChatTableViewCell.identifier)
+        tableView.separatorStyle = .none
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 150
+        return tableView
+    }()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        initViews()
+    }
+
+    func initViews() {
+        super.initViews()
+
+        self.view.addSubview(self.tableView)
+        self.tableView.make { (make) in
+            make.edges.equalToSuperview()
+        }
+
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+    }
+}
+
+extension PracticeViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: PracticeChatTableViewCell.identifier, for: indexPath)
+        return cell
+    }
+}
+
 211120_Domino Clone App Dev Start
 
 // tableView 생성
