@@ -1,4 +1,53 @@
 # Swift_Study
+211123_Tablew View Basic
+import UIKit
+
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+    let myTableView: UITableView = UITableView()
+    let loGoImage = #imageLiteral(resourceName: "logo")
+    let items: [String] = ["슈퍼시드함유도우", "프리미엄", "클래식"]
+    let mainImage: [UIImage] = [#imageLiteral(resourceName: "logo"), #imageLiteral(resourceName: "슈퍼시드"), #imageLiteral(resourceName: "피클소스"), #imageLiteral(resourceName: "피클소스"), #imageLiteral(resourceName: "프리미엄"), #imageLiteral(resourceName: "슈퍼시드"), #imageLiteral(resourceName: "사이드디시")]
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view, typically from a nib.
+        
+        // Do any additional setup after loading the view.
+        self.myTableView.dataSource = self
+        self.myTableView.delegate = self
+        
+        
+        
+        self.myTableView.register(UITableViewCell.self, forCellReuseIdentifier: "TableViewCell")
+        self.view.addSubview(self.myTableView)
+        
+        self.myTableView.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addConstraint(NSLayoutConstraint(item: self.myTableView,
+                                                   attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .top,
+                                                   multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.myTableView,
+                                                   attribute: .bottom, relatedBy: .equal, toItem: self.view,
+                                                   attribute: .bottom, multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.myTableView,
+                                                   attribute: .leading, relatedBy: .equal, toItem: self.view,
+                                                   attribute: .leading, multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.myTableView,
+                                                   attribute: .trailing, relatedBy: .equal, toItem: self.view,
+                                                   attribute: .trailing, multiplier: 1.0, constant: 0))
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.items.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "TableViewCell", for: indexPath) as UITableViewCell
+        cell.textLabel?.text = items[indexPath.row]
+        return cell
+    }
+}
+
 211121_Tablew View Snapkit?
 //snapkit?
 
