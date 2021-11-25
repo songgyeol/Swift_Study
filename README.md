@@ -1,4 +1,141 @@
 # Swift_Study
+211125_Tablew View..restart
+1. ViewControlloer File
+//
+//  ViewController.swift
+//  TableViewTest123
+//
+//  Created by 송결 on 2021/11/23.
+//
+
+import UIKit
+
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
+//    numberOfRowsInSection을 매개 변수로 받는 함수는 TableView에 나타내질 정보의 갯수를 리턴 합니다.
+//    cellForRowAt을 매개변수로 받는 함수는 해당 셀에 어떤 데이터를 나타낼지를 리턴 합니다.
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return user.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.cellId, for: indexPath) as! CustomCell
+        
+        cell.mainMenu.image = user[indexPath.row].mainMenu
+        cell.name.text = user[indexPath.row].name
+        
+        return cell
+    }
+    
+    
+    let table = UITableView()
+    // let testArray = ["a", "b", "c", "d", "e", "f","g", "h", "i"]
+    
+    let user: [User] = [User(mainMenu: UIImage(named: "슈퍼시드.png")!, name: "슈퍼시드"),
+                        User(mainMenu: UIImage(named: "프리미엄.png")!, name: "프리미엄"),
+                        User(mainMenu: UIImage(named: "클래식.png")!, name: "클래식"),
+                        User(mainMenu: UIImage(named: "사이드디시.png")!, name: "사이드디시"),
+                        User(mainMenu: UIImage(named: "음료.png")!, name: "음료"),
+                        User(mainMenu: UIImage(named: "피클소스.png")!, name: "피클소스")]
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        table.delegate = self
+        table.dataSource = self
+        layout()
+        attribute()
+        
+        func layout() {
+            view.addSubview(table)
+            //cell 간격
+            table.rowHeight = 70
+            table.translatesAutoresizingMaskIntoConstraints = false
+            table.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+            table.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+            table.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            table.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+            
+            
+        }
+        
+        func attribute() {
+            table.register(CustomCell.self, forCellReuseIdentifier: CustomCell.cellId)
+            
+        }
+        
+        
+    }
+    
+}
+
+
+
+
+2. CustomCell File
+//
+//  CustomCell.swift
+//  TableViewTest123
+//
+//  Created by 송결 on 2021/11/23.
+//
+
+import UIKit
+
+struct User {
+    let mainMenu: UIImage
+    let name: String
+}
+
+class CustomCell: UITableViewCell {
+    //아이디 선언
+    static let cellId = "CellId"
+    //셀에 들어갈 요소들 선언
+    let mainMenu = UIImageView()
+    let name = UILabel()
+    
+    
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super .init(style: style, reuseIdentifier: reuseIdentifier)
+        layout()
+    }
+    
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func layout() {
+        //            1. 위에서 선언한 두 요소를 뷰에 addSubview 해줍니다.
+        //            2. 우선 뷰의 leadingAnchor로 부터 10pt 간격
+        //            2-1 . centerYAnchor를 통해 이미지가 뷰의 Y축 가운데에 놓이도록 설정
+        //            2-2. 가로 세로 크기 60 고정
+        //            3. profile 의 trailingAnchor로 부터 10pt 간격
+        //            3-1. centerYAnchor를 통해 이미지가 뷰의 Y축 가운데에 놓이도록 설정
+        self.addSubview(mainMenu)
+        self.addSubview(name)
+        
+        mainMenu.translatesAutoresizingMaskIntoConstraints = false
+        mainMenu.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 5).isActive = true
+        mainMenu.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -5).isActive = true
+//        mainMenu.centerXAnchor.constraint(equalTo: self.centerXAnchor, constant: 10).isActive = true
+//        mainMenu.centerYAnchor.constraint(equalTo: self.centerXAnchor, constant: 10).isActive = true
+        mainMenu.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        mainMenu.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        
+        name.translatesAutoresizingMaskIntoConstraints = false
+        name.leadingAnchor.constraint(equalTo: mainMenu.trailingAnchor, constant: 10).isActive = true
+        name.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+    }
+}
+
+
+
+
+
 211124_Tablew View..
 분명 사진까지 구현되는걸 확인했는데
 그 내용을 기록하려 했는데 오늘 좀 더 다듬고 올려야지 하다가
