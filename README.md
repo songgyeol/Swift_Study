@@ -1,4 +1,8 @@
 # Swift_Study
+211126_DreamPlus 2기_ 세번째 스터디
+도미노앱 진행상황, 오더매니져 등
+다음 스터디때는 서로 진행하고 있는 업무 및 공부 목표 정해서 달성해오기
+
 211125_Tablew View..restart
 1. ViewControlloer File
 //
