@@ -1,4 +1,41 @@
 # Swift_Study
+211127_Custom Tabbar
+class CustomTabBarController : UITabBarController {
+
+        override func viewDidLoad() {
+        super.viewDidLoad()
+            
+            
+            self.tabBar.tintColor = .red
+            self.tabBar.unselectedItemTintColor = .blue
+            
+            let firstVC = UINavigationController(rootViewController: ViewController())
+            firstVC.tabBarItem.selectedImage = UIImage(systemName: "domino's")
+            firstVC.tabBarItem.title = "Recent"
+            firstVC.tabBarItem.image = UIImage(systemName: "domino's.fill")
+            
+            let wishView = UIViewController()
+            wishView.view.backgroundColor = .yellow
+            wishView.tabBarItem.title = "Wish List"
+            wishView.tabBarItem.image = UIImage(systemName: "whshView.fill")
+            
+            viewControllers = [firstVC, wishView]
+            
+        }
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+
+            if let windowScene = scene as? UIWindowScene {
+                let why = UIWindow(windowScene: windowScene)
+
+                why.rootViewController = CustomTabBarController()
+
+                why.makeKeyAndVisible()
+            }
+        }
+    
+}
+
+
 211126_DreamPlus 2기_ 세번째 스터디
 도미노앱 진행상황, 오더매니져 등
 다음 스터디때는 서로 진행하고 있는 업무 및 공부 목표 정해서 달성해오기
