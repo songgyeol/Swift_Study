@@ -1,4 +1,207 @@
 # Swift_Study
+211129_Table Header
+//  TabOneViewController.swift
+//  TabBarTest
+//
+//  Created by 송결 on 2021/11/28.
+//
+
+import UIKit
+
+class TabOneViewController: UIViewController {
+    let tableHeader = UITableViewHeaderFooterView()
+    let table = UITableView()
+    let user: [User] = [User(mainMenu: UIImage(named: "슈퍼시드.png")!),
+                        User(mainMenu: UIImage(named: "프리미엄.png")!),
+                        User(mainMenu: UIImage(named: "클래식.png")!),
+                        User(mainMenu: UIImage(named: "사이드디시.png")!),
+                        User(mainMenu: UIImage(named: "음료.png")!),
+                        User(mainMenu: UIImage(named: "피클소스.png")!)]
+    
+    let logoimage = #imageLiteral(resourceName: "logo")
+    
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        // Do any additional setup after loading the view.
+        layout()
+        attribute()
+        headerViewLayout()
+        //테이블 경계?!
+        //        table.estimatedSectionHeaderHeight = 10
+        
+        
+    }
+    
+    
+    /*
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
+}
+extension TabOneViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return user.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: CustomCell.cellId, for: indexPath) as! CustomCell
+        
+        cell.mainMenu.image = user[indexPath.row].mainMenu
+        // cell.name.text = user[indexPath.row].name
+        
+        return cell
+    }
+    
+    func headerViewLayout() {
+        tableHeader.backgroundView = UIImageView.init(image: logoimage)
+        tableHeader.backgroundColor = .darkGray
+        tableHeader.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableHeader.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            tableHeader.widthAnchor.constraint(equalToConstant: 300),
+            tableHeader.heightAnchor.constraint(equalToConstant: 300)
+        ])
+        tableHeader.layoutIfNeeded()
+        
+    }
+    
+    
+    func layout() {
+        view.addSubview(table)
+        //cell 간격
+        table.rowHeight = 100
+        table.backgroundColor = .white
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        table.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        table.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        table.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        
+        
+    }
+    
+    func attribute() {
+        table.register(CustomCell.self, forCellReuseIdentifier: CustomCell.cellId)
+        table.delegate = self
+        table.dataSource = self
+        table.tableHeaderView = tableHeader
+    }
+    
+    // func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    //   return 300
+    
+    
+    
+    
+    
+}
+
+
+
+
+211128_Custom Tabbar
+TabBar Basic
+//#1 Viewcontroller
+import UIKit
+
+
+class ViewController: UITabBarController, UITabBarControllerDelegate {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        //Assign self for delegate for that ViewController can respond to UITabBarControllerDelegate methods
+        self.delegate = self
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Create Tab one
+        let tabOne = TabOneViewController()
+        let tabOneBarItem = UITabBarItem(title: "Domino's", image: UIImage(named: "defaultImage.png"), selectedImage: UIImage(named: "selectedImage.png"))
+        
+        tabOne.tabBarItem = tabOneBarItem
+        
+        
+        // Create Tab two
+        let tabTwo = TabTwoViewController()
+        let tabTwoBarItem2 = UITabBarItem(title: "Wish List", image: UIImage(named: "defaultImage2.png"), selectedImage: UIImage(named: "selectedImage2.png"))
+        
+        tabTwo.tabBarItem = tabTwoBarItem2
+        
+        
+        self.viewControllers = [tabOne, tabTwo]
+    }
+    
+    // UITabBarControllerDelegate method
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        print("Selected \(viewController.title!)")
+    }
+}
+
+
+
+//#2 TabOneViewController
+import UIKit
+
+class TabOneViewController: UIViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor.blue
+        self.title = "Domino's"
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        
+        /*
+         // MARK: - Navigation
+         
+         // In a storyboard-based application, you will often want to do a little preparation before navigation
+         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         // Get the new view controller using segue.destination.
+         // Pass the selected object to the new view controller.
+         }
+         */
+        
+    }
+}
+
+
+
+//#3 TabTwoViewController
+import UIKit
+
+class TabTwoViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+        self.view.backgroundColor = UIColor.red
+        self.title = "Wish List"
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+
+
 211127_Custom Tabbar
 class CustomTabBarController : UITabBarController {
 
