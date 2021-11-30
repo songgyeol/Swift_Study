@@ -1,4 +1,45 @@
 # Swift_Study
+211129_NavigationView #1 [view vs nvview]
+//viewcontroller와 navigationview
+
+//일반적인 뷰의 사례
+import UIKit
+
+class RootViewController: UIViewController {
+    ...
+    
+    func showFirstViewController() {
+        // 선언
+        let firstVC = UIViewController()
+        
+        // 화면 띄우기
+        self.present(firstVC, animated: true)
+    }
+    
+    ...
+}
+
+//네비게이션뷰의 루트뷰컨트롤러 설정
+import UIKit
+
+class RootViewController: UIViewController {
+    ...
+    
+    func showNavigationController() {
+        // 선언
+        let firstVC = UIViewController()
+        let naviC = UINavigationController(rootViewController: firstVC)
+        
+        // 화면 띄우기
+        self.present(naviC, animated: true)
+    }
+    
+    ...
+}
+
+
+
+
 211129_Table Header
 //  TabOneViewController.swift
 //  TabBarTest
