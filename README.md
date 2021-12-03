@@ -1,4 +1,32 @@
 # Swift_Study
+211203_DreamPlus 2기_ 네번째 스터디
+기존의 **AppDelegate.swift** 에서 정의했던 NavigationController는 **SceneDelegate.swift** 에서 정의를 해줘야합니다.
+
+`UIWindow` 가 SceneDelegate에 정의되어 있습니다.
+
+**SceneDelegate.swift**
+
+```
+func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+    // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
+    // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
+    // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+    guard let windowScene = (scene as? UIWindowScene) else { return }
+
+    window?.windowScene = windowScene
+    window?.makeKeyAndVisible()
+
+    self.window = UIWindow(windowScene: windowScene)
+    // 루트 뷰 컨트롤러가 될 뷰컨트롤러 생성
+    let rootViewController = ViewController()
+    // 위에서 생성한 뷰 컨트롤러로 네비게이션 컨트롤러를 생성
+    let navigationController = UINavigationController(rootViewController: rootViewController)
+
+    // 윈도우의 루트 뷰 컨트롤러로 네비게이션 컨트롤러를 설정
+    self.window?.rootViewController = navigationController
+}
+```
+
 211201_DreamPlus 2기_ 네번째 스터디
 post-man
 scene delegate
