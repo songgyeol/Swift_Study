@@ -1,4 +1,342 @@
 # Swift_Study
+211212_Domino
+Controller_CategotyViewController
+import UIKit
+
+class CategoryViewController: UIViewController {
+
+    let categoryList = ["슈퍼시드", "프리미엄", "클래식", "사이드디시", "음료", "피클소스"]
+    let categoryTableView = UITableView()
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        setCategotyTableView()
+        setUI()
+        
+    }
+    func setCategotyTableView() {
+        categoryTableView.dataSource = self
+        categoryTableView.delegate = self
+        categoryTableView.register(CategoryTableViewCell.self, forCellReuseIdentifier: "CategoryCell")
+        categoryTableView.rowHeight = 100
+    }
+    func setUI() {
+        view.addSubview(categoryTableView)
+        let CategoryHeaderView = UIImageView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: 200))
+        categoryTableView.tableHeaderView = CategoryHeaderView
+        CategoryHeaderView.image = UIImage(named: "logo")
+        categoryTableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            categoryTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            categoryTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            categoryTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            categoryTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+
+}
+
+extension CategoryViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return categoryList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let categoryCell = categoryTableView.dequeueReusableCell(withIdentifier: "CategoryCell", for: indexPath) as? CategoryTableViewCell else {  fatalError() }
+        categoryCell.category.image = UIImage(named: categoryList[indexPath.item])
+        return categoryCell
+    }
+    
+    
+}
+extension CategoryViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let nextVC = ProductViewController()
+        nextVC.navigationItem.title = categoryList[indexPath.row]
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+}
+
+
+Controller_ProductViewController
+import UIKit
+class ProductViewController: UIViewController {
+    let productTableView = UITableView()
+    var selectedList: [String] = []
+    let superSeedList = ["글램핑 바비큐", "알로하 하와이안", "우리 고구마", "콰트로 치즈 퐁듀"]
+    let premiumList = ["더블크러스트 이베리코", "블랙앵거스 스테이크", "블랙타이거 슈림프", "와규 앤 비스테카", "직화 스테이크"]
+    let classicList = ["베이컨체더치즈", "불고기", "슈퍼디럭스", "슈퍼슈프림", "페퍼로니", "포테이토"]
+    let sideList = ["딸기 슈크림", "슈퍼곡물 치킨", "애플 크러스트 디저트", "치킨퐁듀 그라탕", "퀴노아 치킨 샐러드", "포테이토 순살치킨"]
+    let drinkList = ["미닛메이드 스파클링 청포도", "스프라이트", "코카콜라 제로", "코카콜라"]
+    let sauceList = ["갈릭 디핑 소스", "스위트 칠리소스", "우리 피클 L", "우리 피클 M", "핫소스"]
+    let priceOfPiazza = 10000
+    let priceOfSide = 7000
+    let priceOfDrink = 3000
+    let priceOfSauce = 500
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        setUI()
+        setSelectedList()
+        setProductTableView()
+    }
+    func setUI() {
+        view.addSubview(productTableView)
+        productTableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            productTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            productTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            productTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            productTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    func setSelectedList() {
+        switch self.navigationItem.title {
+        case "슈퍼시드":
+            selectedList = superSeedList
+        case "프리미엄":
+            selectedList = premiumList
+        case "클래식":
+            selectedList = classicList
+        case "사이드디시":
+            selectedList = sideList
+        case "음료":
+            selectedList = drinkList
+        case "피클소스":
+            selectedList = sauceList
+        default:
+            fatalError()
+        }
+    }
+    func setProductTableView() {
+        productTableView.dataSource = self
+        productTableView.delegate = self
+        productTableView.register(ProductTableViewCell.self, forCellReuseIdentifier: "ProductCell")
+        productTableView.rowHeight = 120
+    }
+}
+
+extension ProductViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        selectedList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let productCell = productTableView.dequeueReusableCell(withIdentifier: "ProductCell", for: indexPath) as? ProductTableViewCell else {  fatalError() }
+        productCell.product.image = UIImage(named: selectedList[indexPath.item])
+        switch self.navigationItem.title {
+        case "슈퍼시드", "프리미엄", "클래식":
+            productCell.productLabel.text = "\(selectedList[indexPath.item])\n\(priceOfPiazza)원"
+        case "사이드디시":
+            productCell.productLabel.text = "\(selectedList[indexPath.item])\n\(priceOfSide)원"
+        case "음료":
+            productCell.productLabel.text = "\(selectedList[indexPath.item])\n\(priceOfDrink)원"
+        case "피클소스":
+            productCell.productLabel.text = "\(selectedList[indexPath.item])\n\(priceOfSauce)원"
+        default:
+            fatalError()
+        }
+        return productCell
+    }
+    
+    
+}
+extension ProductViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let nextVC = DetailViewController()
+        nextVC.navigationItem.title = selectedList[indexPath.row]
+        navigationController?.pushViewController(nextVC, animated: true)
+    }
+}
+
+Controller_WishListViewController
+import UIKit
+class WishListViewController: UIViewController {
+    let wishListTableView = UITableView()
+    var selectedItem: [String] = []
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        setUI()
+        setWishListTableView()
+        setNaviButton()
+       }
+    override func viewWillAppear(_ animated: Bool) {
+        reSetWishList()
+        wishListTableView.reloadData()
+    }
+    
+    func setNaviButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "목록 지우기", style: .plain, target: self, action: #selector(clearButtonTapped(_:)))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "주문", style: .plain, target: self, action: #selector(orderButtonTapped(_:)))
+    }
+    
+    @objc
+    func clearButtonTapped(_ sender: UIButton) {
+        self.selectedItem.forEach { (item) in
+            OrderManager.shared.cart[item] = 0 }
+        self.selectedItem.removeAll()
+        self.wishListTableView.reloadData()
+    }
+    @objc
+    func orderButtonTapped(_ sender: UIButton) {
+        var orderMSG = ""
+        var finalPrice = 0
+        selectedItem.forEach { (item) in
+            orderMSG += "\(item) - \(OrderManager.shared.cart[item] ?? 0)개\n"
+            finalPrice += (OrderManager.shared.menuPrice[item] ?? 0) * (OrderManager.shared.cart[item] ?? 0)
+        }
+        let priceAlert = UIAlertController(title: "결제내역", message: "\(orderMSG)\(finalPrice)원", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "결제하기", style: .default) { (okAction) in
+            self.selectedItem.forEach { (item) in
+                OrderManager.shared.cart[item] = 0 }
+            self.selectedItem.removeAll()
+            self.wishListTableView.reloadData()
+        }
+        let cancleAction = UIAlertAction(title: "취소", style: .cancel)
+        priceAlert.addAction(okAction)
+        priceAlert.addAction(cancleAction)
+        present(priceAlert, animated: true, completion: nil)
+    }
+
+    func setUI() {
+        view.addSubview(wishListTableView)
+        wishListTableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            wishListTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            wishListTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            wishListTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            wishListTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        ])
+    }
+    
+    func setWishListTableView() {
+        wishListTableView.register(ProductTableViewCell.self, forCellReuseIdentifier: "WishListCell")
+        wishListTableView.rowHeight = 120
+        wishListTableView.dataSource = self
+    }
+    
+    func reSetWishList() {
+        selectedItem.removeAll()
+        OrderManager.shared.menu.forEach { (item) in
+            if OrderManager.shared.cart[item] != 0 {
+                selectedItem.append(item)
+            }
+        }
+    }
+}
+
+extension WishListViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return selectedItem.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let wishListCell = wishListTableView.dequeueReusableCell(withIdentifier: "WishListCell", for: indexPath) as? ProductTableViewCell else {  fatalError() }
+        wishListCell.product.image = UIImage(named: selectedItem[indexPath.row])
+        wishListCell.productLabel.text = "\(selectedItem[indexPath.row])\n\(OrderManager.shared.cart[selectedItem[indexPath.row]] ?? 0)개"
+        return wishListCell
+    }
+    
+
+}
+
+Controller_DetailViewController
+import UIKit
+class DetailViewController: UIViewController {
+    let orderImageView = UIImageView()
+    var itemName = ""
+    let stackView = UIStackView()
+    let minusButton = UIButton(type: .system)
+    let plusButton = UIButton(type: .system)
+    let numLabel = UILabel()
+    var num = 0
+    
+    // MARK: - LifeCycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+        setUI()
+        setImageView()
+        setStackView()
+        stackView.backgroundColor = .gray
+        setButton()
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        
+        numLabel.text = "\(OrderManager.shared.cart[itemName]!)개"
+    }
+    
+    // MARK: - setUI
+    func setUI() {
+        [orderImageView, stackView].forEach {
+            view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
+        NSLayoutConstraint.activate([
+            orderImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            orderImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            orderImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            orderImageView.heightAnchor.constraint(equalTo: view.widthAnchor),
+            
+            stackView.topAnchor.constraint(equalTo: orderImageView.bottomAnchor, constant: 30),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            stackView.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    func setImageView() {
+        itemName = self.navigationItem.title!
+        orderImageView.image = UIImage(named: itemName)
+    }
+    func setStackView() {
+        numLabel.text = "0개"
+        numLabel.textAlignment = .center
+        numLabel.textColor = .white
+        plusButton.setTitle("+", for: .normal)
+        minusButton.setTitle("-", for: .normal)
+        [minusButton, plusButton].forEach {
+            $0.backgroundColor = .white
+            $0.setTitleColor(.black, for: .normal)
+            $0.layer.borderWidth = 3
+            $0.layer.borderColor = UIColor.gray.cgColor
+        }
+        [minusButton, numLabel, plusButton].forEach {
+            stackView.addArrangedSubview($0)
+        }
+        stackView.alignment = .fill
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+    }
+    func setButton() {
+        minusButton.addTarget(self, action: #selector(handleButton(_:)), for: .touchUpInside)
+        plusButton.addTarget(self, action: #selector(handleButton(_:)), for: .touchUpInside)
+    }
+    @objc
+    func handleButton(_ sender: UIButton) {
+        
+        switch sender {
+        case plusButton:
+            OrderManager.shared.cart[itemName]! += 1
+        case minusButton:
+            if OrderManager.shared.cart[itemName] ?? 0 >= 1 {
+                OrderManager.shared.cart[itemName]! -= 1
+            } else {
+                OrderManager.shared.cart[itemName] = 0
+            }
+        default:
+            fatalError()
+        }
+        num = OrderManager.shared.cart[itemName]!
+        numLabel.text = "\(num)개"
+    }
+}
+
 211211_Domino
 Model_OrderManager
 import Foundation
