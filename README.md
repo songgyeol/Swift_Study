@@ -1,4 +1,24 @@
 # Swift_Study
+211215_DateFormatter
+```jsx
+이를 해결하려면 ImageLoader 인스턴스를 생성한 후
+인스턴스를 사용하는 클래스/구조체 변수에 인스턴스에 대한 참조를 유지하고
+동일한 캐시가 필요한 다른 소비자에게 전달해야 합니다
+ (종속성 주입 기술은 이에 대한 좋은 접근 방식입니다).
+따라서 일정량의 항목이 있는 하나의 캐시가 존재하고 작동합니다.
+
+또는 가장 간단한 방법은 ImageLoader의 공유 인스턴스를 만들어 사용하는 것이므로
+하나의 채워진 캐시로 하나의 인스턴스도 보장합니다.
+```
+
+[https://namu.wiki/w/캐시 메모리](https://namu.wiki/w/%EC%BA%90%EC%8B%9C%20%EB%A9%94%EB%AA%A8%EB%A6%AC)
+
+[https://sihyungyou.github.io/iOS-dependency-injection/](https://sihyungyou.github.io/iOS-dependency-injection/)
+
+[https://youtu.be/sHLd1BuW0aU](https://youtu.be/sHLd1BuW0aU)
+
+무슨 방식을 한건지 모르겠지만 그냥 한마디로 똑같은 메모리 주소 계속 전달하라는 뜻이야
+
 211214_DateFormatter
 생각나지않으면, 필요할때 찾아쓰면 됨 (외우는 것 절대 아님)
 
