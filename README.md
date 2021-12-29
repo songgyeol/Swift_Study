@@ -1,4 +1,8 @@
 # Swift_Study
+211229_메모리, 주니어 개발자의 역량
+https://post.naver.com/viewer/postView.nhn?volumeNo=6766370&memberNo=10558726
+https://youtu.be/UK893WOgDew
+
 211227_URLSession Stater
 import UIKit
 
