@@ -1,4 +1,6 @@
 # Swift_Study
+220106_Domino Start by.Doyoung_2
+
 220104_Domino Start by.Doyoung
 
 211229_메모리, 주니어 개발자의 역량
