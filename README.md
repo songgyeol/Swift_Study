@@ -1,4 +1,93 @@
 # Swift_Study
+220111_Decodable Study
+//
+//  ViewController.swift
+//  URLSession-starter
+//
+//  Created by 송결 on 2021/12/27.
+//
+
+import UIKit
+import SnapKit
+
+final class ViewController: UIViewController {
+
+    
+    let temperatureLabel = UILabel()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+       
+        setUI()
+        getweather()
+    }
+    
+        }
+extension ViewController {
+    private func getweather() {
+       guard let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?q=seoul&appid=7321aa59b6ca9072137e5b4b951757aa") else { return }
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            //에러 여부 체크
+            guard error == nil else { return print(error!) }
+            
+            //이건 해도되고 안해도된다 , 응탑 코드 확인
+            guard let response = response as? HTTPURLResponse,
+                  (200..<400).contains(response.statusCode) else { return print("Invalid Response") }
+            //데이터 확인
+            guard let data = data else { return }
+            do {
+                
+                let decoder = JSONDecoder()
+                let decodedData = try decoder.decode(WeatherData.self, from: data)
+                let temp = decodeData.main.temp
+                DispatchQueue.main.async {
+                    self.temperatureLabel.text = String(temp)
+                }
+                let feelsLike
+                
+                
+                //타입캐스팅으로 해독해~
+//               if let jsonObject = try JSONSerialization.jsonObject(with: data) as? [String: Any] {
+//                if let main = jsonObject["main"] as? [String: Double] {
+//                    let temp = main["temp"]!
+//                    DispatchQueue.main.async {
+//                    self.temperatureLabel.text = String(temp)
+//                    }
+//                   }
+//                }
+            } catch {
+                print("Parsing Error")
+                print(error)
+                
+            }
+            
+        }.resume()
+    }
+}
+
+        extension ViewController {
+            private func setUI() {
+                setBasic()
+                setLayout()
+    }
+    
+    private func setBasic() {
+        temperatureLabel.text = "Loading..."
+    }
+    private func setLayout() {
+        view.addSubview(temperatureLabel)
+        temperatureLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+                                        temperatureLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                        temperatureLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+
+}
+
+
+
 220110_Decodable Swift
 jitsi meet
 cocoapods
