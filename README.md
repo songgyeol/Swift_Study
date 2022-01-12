@@ -1,4 +1,7 @@
 # Swift_Study
+220112_ios Developer
+https://www.youtube.com/watch?v=oBbWVlS4NJM
+
 220111_Decodable Study
 //
 //  ViewController.swift
