@@ -1,4 +1,17 @@
 # Swift_Study
+220118_OpenWeather API
+Alamofire, SnapKit 을 CocoaPods 로 설치해서 동영상 처럼 만들어오기
+
+Label 은 화면의 정중앙, width 120, height 40, 코너 4
+
+Button 은 Label 로 부터 120 아래, X 축 중앙
+
+Decodable 사용해서 JSON 파싱
+
+#힌트 Alamofire .responseDecodable
+
+Label 에 표시되는 온도는 OpenWeather API 사용
+
 220113_개발&it 관련 추천 도서 목록
 https://butter-shower.tistory.com/197
 
